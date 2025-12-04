@@ -4,15 +4,17 @@
   <meta charset="UTF-8" />
   <title>Dubuque Area Maternal, Pregnancy, Parenting & Family Resource Directory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
     :root {
-      --bg: #f5f7fb;
+      --bg-top: #fef3ec;
+      --bg-bottom: #f5f7fb;
       --card-bg: #ffffff;
-      --accent: #1f6feb;
-      --accent-soft: #e2ebff;
-      --text-main: #1b1b1f;
-      --text-muted: #555b66;
-      --border-soft: #dde3f0;
+      --accent: #c9553c;
+      --accent-soft: #ffe3d5;
+      --text-main: #2b2320;
+      --text-muted: #5c5a60;
+      --border-soft: #e5d9d2;
     }
 
     * {
@@ -23,8 +25,11 @@
         sans-serif;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      background: var(--bg);
+      min-height: 100vh;
+      background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
       color: var(--text-main);
       padding: 16px;
     }
@@ -36,19 +41,28 @@
 
     header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
+    }
+
+    .hero-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 12px;
     }
 
     header h1 {
-      font-size: 1.4rem;
-      margin-bottom: 6px;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
     }
 
     header p {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
       max-width: 640px;
       margin: 0 auto;
+      line-height: 1.5;
     }
 
     .notice {
@@ -58,962 +72,807 @@
       padding: 10px 12px;
       font-size: 0.85rem;
       color: #7a5a12;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
 
     .section-label {
       font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       color: var(--text-muted);
-      margin: 20px 0 8px;
+      margin: 24px 0 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent);
     }
 
     .section-label span {
       font-size: 1rem;
       text-transform: none;
-      letter-spacing: normal;
       font-weight: 600;
       color: var(--text-main);
       display: block;
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     .card {
       background: var(--card-bg);
       border-radius: 14px;
-      padding: 14px 14px 10px;
+      padding: 14px 14px 12px;
       margin-bottom: 10px;
       border: 1px solid var(--border-soft);
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06);
+      transition: 0.15s ease;
+    }
+
+    @media (hover:hover){
+      .card:hover{
+        box-shadow:0 4px 12px rgba(15,23,42,0.12);
+        transform:translateY(-1px);
+      }
     }
 
     .card-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: baseline;
-      margin-bottom: 6px;
-      flex-wrap: wrap;
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:baseline;
+      margin-bottom:6px;
     }
 
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-    }
+    .card-title { font-size:1rem; font-weight:600; }
 
     .tag {
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      white-space: nowrap;
+      font-size:0.75rem;
+      padding:4px 8px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
     }
 
     .card-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      line-height: 1.4;
+      font-size:0.82rem;
+      color:var(--text-muted);
+      margin-bottom:6px;
+      line-height:1.4;
     }
 
     .card-number-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      margin: 4px 0 6px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:6px;
+      margin:4px 0 6px;
     }
 
     .card-number-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size:0.8rem;
+      color:var(--text-muted);
     }
 
     .call-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 10px;
-      font-size: 0.85rem;
-      border-radius: 999px;
-      border: 1px solid var(--accent);
-      color: #ffffff;
-      background: var(--accent);
-      text-decoration: none;
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      background:var(--accent);
+      color:#fff;
+      border-radius:999px;
+      font-size:0.85rem;
+      text-decoration:none;
+      border:1px solid var(--accent);
     }
 
     .call-link span {
-      font-weight: 600;
-      margin-left: 4px;
+      font-weight:600;
+      margin-left:4px;
     }
 
     .card-description {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-      margin-top: 4px;
+      font-size:0.86rem;
+      color:var(--text-muted);
+      line-height:1.5;
+      margin-top:4px;
     }
 
     .card-description ul {
-      padding-left: 18px;
-      margin-top: 4px;
+      padding-left:18px;
+      margin-top:4px;
     }
 
     .card-description li {
-      margin-bottom: 3px;
+      margin-bottom:3px;
     }
 
     .email-link {
-      font-size: 0.8rem;
-      color: var(--accent);
-      text-decoration: none;
+      font-size:0.8rem;
+      color:var(--accent);
+      text-decoration:none;
     }
 
     .small-note {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 18px;
-      line-height: 1.4;
+      font-size:0.75rem;
+      color:var(--text-muted);
+      margin-top:22px;
+      line-height:1.5;
+      text-align:center;
     }
 
-    @media (min-width: 480px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
-      .card {
-        padding: 16px 16px 12px;
-      }
+    .small-note a {
+      color:var(--accent);
+      text-decoration:none;
     }
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <header>
-      <h1>Dubuque Area Maternal, Pregnancy, Parenting &amp; Family Resource Directory</h1>
-      <p>
-        A quick guide to local maternal, pregnancy, parenting, mental health, housing, food, and support
-        resources in the Dubuque area. Tap a phone number to call directly.
-      </p>
-    </header>
+<div class="page">
 
-    <div class="notice">
-      If you are in immediate danger or having a life-threatening emergency, call <strong>911</strong>.
-    </div>
+<header>
+  <img src="images/mom-circle.png" class="hero-icon" alt="Mother and baby icon"/>
+  <h1>Dubuque Area Maternal, Pregnancy, Parenting &amp; Family Resource Directory</h1>
+  <p>
+    A quick guide to local maternal, pregnancy, parenting, mental health, housing, food, and support
+    resources in the Dubuque area. Tap a phone number to call directly.
+  </p>
+</header>
 
-    <!-- MATERNAL ADVICE, MENTORING & PARENTING SUPPORT -->
-    <div class="section-label">
-      ⭐ Maternal Advice, Mentoring &amp; Parenting Support
-      <span>Pregnancy tests, mentoring, parenting support, and family resources</span>
-    </div>
+<div class="notice">
+  If you are in immediate danger or having a life-threatening emergency, call <strong>911</strong>.
+</div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">The Clarity Clinic</div>
-        <div class="tag">Pregnancy &amp; parenting support</div>
-      </div>
-      <div class="card-meta">
-        📍 3365 Hillcrest Rd, Dubuque, IA
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635565250">📞 <span>563-556-5250</span></a>
-        <a class="call-link" href="tel:5635573123">📞 <span>563-557-3123</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Free pregnancy tests &amp; ultrasounds</li>
-          <li>Parenting classes with incentives</li>
-          <li>Free high-quality baby gear (earned through classes/coaching)</li>
-          <li>First Steps Program: parenting + mentoring for ages 0–5</li>
-          <li>STD testing, boundaries education, reproductive health teaching</li>
-          <li>Post-abortion counseling</li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">MercyOne Maternal Health</div>
-        <div class="tag">Prenatal &amp; postpartum care</div>
-      </div>
-      <div class="card-meta">
-        📍 MercyOne Dubuque Health Plaza<br />
-        200 Mercy Drive, Suite 102, Dubuque, IA 52001
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635898595">📞 <span>563-589-8595</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Prenatal &amp; postnatal care for all women</li>
-          <li>Free pregnancy testing (eligibility-based)</li>
-          <li>Help applying for Title 19, Title 5, and insurance</li>
-          <li>Hospital pre-registration assistance</li>
-          <li>Education for labor, delivery, postpartum, and infant care</li>
-          <li>Parenting preparation and support</li>
-          <li>Convenient location for public transit (The Jule route)</li>
-        </ul>
-      </div>
-    </div>
+<!-- ⭐ MATERNAL SUPPORT -->
+<div class="section-label">
+  ⭐ Maternal Advice, Mentoring &amp; Parenting Support
+  <span>Pregnancy tests, mentoring, parenting support, and family resources</span>
+</div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Parents Helping Parents (PHP)</div>
-        <div class="tag">National parenting helpline</div>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:18006328188">📞 <span>1-800-632-8188</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>National confidential parenting helpline</li>
-          <li>Emotional support for day-to-day parenting issues</li>
-          <li>Virtual parent support groups &amp; Zoom calls</li>
-          <li>Help with parenting stress, behavior challenges, and family stability</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Birthright</div>
-        <div class="tag">Pregnancy support</div>
-      </div>
-      <div class="card-meta">
-        📍 221 West 9th St, Dubuque
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Office:</div>
-        <a class="call-link" href="tel:5635561991">📞 <span>563-556-1991</span></a>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Emergency Hotline:</div>
-        <a class="call-link" href="tel:8005504900">📞 <span>1-800-550-4900</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Free pregnancy testing &amp; confidential counseling</li>
-          <li>Support for pregnant women (married or single)</li>
-          <li>Free maternity and infant clothing &amp; diapers</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Stepping Stones – Hope Church Mentoring</div>
-        <div class="tag">Mentoring ages 0–4</div>
-      </div>
-      <div class="card-meta">
-        📍 Roshek Building, 700 Locust St (Lower Level), Dubuque<br />
-        ☎️ 563-557-3774
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635573774">📞 <span>563-557-3774</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Mentoring for pregnant women and parents of children ages 0–4</li>
-          <li>Relationship help &amp; parenting coaching</li>
-          <li>Videos, educational materials, and spiritual support</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Mothers of Preschoolers (MOPS) – Hope Church</div>
-        <div class="tag">Peer mom community</div>
-      </div>
-      <div class="card-meta">
-        📍 11893 Kennedy Rd, Dubuque<br />
-        ☎️ 563-556-7724
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635567724">📞 <span>563-556-7724</span></a>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Email:</div>
-        <a class="email-link" href="mailto:mops@ehope.org">mops@ehope.org</a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Peer community for mothers of infants through kindergarten</li>
-          <li>Parenting support, connection, and encouragement</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Parents as Teachers (PAT) – Four Oaks</div>
-        <div class="tag">Free home-visiting</div>
-      </div>
-      <div class="card-meta">
-        📍 2460 Kerper Blvd, Dubuque<br />
-        ☎️ 563-557-3100
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635573100">📞 <span>563-557-3100</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Free home-visiting family education program</li>
-          <li>Developmental screenings and parent coaching</li>
-          <li>Support from pregnancy through kindergarten entry</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">The Gabriel Project – St. Anthony’s Parish</div>
-        <div class="tag">Parish-based pregnancy support</div>
-      </div>
-      <div class="card-meta">
-        Local Contacts:<br />
-        • Jackie Crimmins — 563-582-7949<br />
-        • Sue Lansing — 563-583-0457
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Jackie:</div>
-        <a class="call-link" href="tel:5635827949">📞 <span>563-582-7949</span></a>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Sue:</div>
-        <a class="call-link" href="tel:5635830457">📞 <span>563-583-0457</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Parish-based ministry supporting women in crisis pregnancies</li>
-          <li>Parish “adopts” a mom and provides emotional &amp; spiritual support</li>
-          <li>Baby supplies, diapers, clothing, meals, rides to appointments</li>
-          <li>Basic financial help, prayer support, and occasional childcare</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- EARLY DEVELOPMENT & EDUCATION -->
-    <div class="section-label">
-      ⭐ Early Development &amp; Education
-      <span>Childcare, preschool, developmental screening, and early intervention</span>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Hills &amp; Dales Child Care</div>
-        <div class="tag">Childcare &amp; preschool</div>
-      </div>
-      <div class="card-meta">
-        📍 3505 Stoneman Rd, Dubuque<br />
-        ☎️ 563-583-5033
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635835033">📞 <span>563-583-5033</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Preschool &amp; childcare programs</li>
-          <li>Before/after school care</li>
-          <li>Inclusive care for children with and without disabilities (ages 0–18)</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Keystone Area Education Agency (AEA)</div>
-        <div class="tag">Early intervention</div>
-      </div>
-      <div class="card-meta">
-        📍 2310 Chaney Rd, Dubuque<br />
-        ☎️ 563-556-3310 or 1-800-632-5918
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Local:</div>
-        <a class="call-link" href="tel:5635563310">📞 <span>563-556-3310</span></a>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Toll-free:</div>
-        <a class="call-link" href="tel:18006325918">📞 <span>1-800-632-5918</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Free developmental screening for ages 0–3</li>
-          <li>Early intervention support</li>
-          <li>Special needs identification and services coordination</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Visiting Nurse Association (VNA)</div>
-        <div class="tag">Child &amp; family services</div>
-      </div>
-      <div class="card-meta">
-        📍 1454 Iowa St, Dubuque<br />
-        ☎️ 563-556-6200
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635566200">📞 <span>563-556-6200</span></a>
-      </div>
-      <div class="card-description">
-        <strong>Child &amp; Family Services:</strong>
-        <ul>
-          <li>Free developmental screenings (ages 0–5)</li>
-          <li>Immunizations &amp; lead testing (ages 0–18)</li>
-          <li>Parent education &amp; 1stFive program</li>
-        </ul>
-        <strong>Additional VNA Services:</strong>
-        <ul>
-          <li>Home care for the elderly</li>
-          <li>HIV testing, cancer screenings, and more</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- BREASTFEEDING SUPPORT -->
-    <div class="section-label">
-      ⭐ Breastfeeding Support
-      <span>Lactation support groups, pumping help, and breastfeeding education</span>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Natural Milk Network</div>
-        <div class="tag">Breastfeeding support group</div>
-      </div>
-      <div class="card-meta">
-        📍 MercyOne Board Room, Dubuque<br />
-        ☎️ 563-589-9598<br />
-        🕒 1st, 3rd &amp; 5th Wednesdays, 1–3 PM
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635899598">📞 <span>563-589-9598</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Breastfeeding support for all families</li>
-          <li>Latching help, pumping support, newborn feeding issues</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Finley UnityPoint Breastfeeding Group</div>
-        <div class="tag">Lactation support</div>
-      </div>
-      <div class="card-meta">
-        📍 1515 Delhi St, Delhi Medical Building (3rd Floor), Dubuque<br />
-        🕒 Tuesdays 1:30–2:30 PM &amp; every other Tuesday 6–7 PM
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Group lactation support and feeding guidance</li>
-          <li>Help with breastfeeding concerns and newborn feeding</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">WIC Breastfeeding Support</div>
-        <div class="tag">Nutrition &amp; lactation support</div>
-      </div>
-      <div class="card-meta">
-        ☎️ 563-557-4444
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635574444">📞 <span>563-557-4444</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Pump education and lactation counseling</li>
-          <li>Nutrition support for breastfeeding moms</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- EMOTIONAL & PEER SUPPORT GROUPS -->
-    <div class="section-label">
-      ⭐ Emotional &amp; Peer Support Groups
-      <span>Support for mood changes, postpartum emotions, and grief</span>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Prenatal &amp; Postpartum Emotions Group</div>
-        <div class="tag">Support group</div>
-      </div>
-      <div class="card-meta">
-        📍 MercyOne, 6th Floor Boardroom, Dubuque<br />
-        ☎️ 563-587-9406<br />
-        🕒 1st Saturday monthly, 10:30 AM–12 PM
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635879406">📞 <span>563-587-9406</span></a>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Email:</div>
-        <a class="email-link" href="mailto:Dubuque.therapy@gmail.com">Dubuque.therapy@gmail.com</a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Support for anxiety, postpartum depression, mood changes, and stress</li>
-          <li>Safe place to talk about feelings during pregnancy and postpartum</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">SHARE – Pregnancy &amp; Infant Loss Support Group</div>
-        <div class="tag">Grief support</div>
-      </div>
-      <div class="card-meta">
-        📍 MercyOne, 250 Mercy Dr, Dubuque<br />
-        ☎️ 563-589-9599<br />
-        🕒 Meets 2nd Wednesday monthly
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635899599">📞 <span>563-589-9599</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Support after miscarriage, stillbirth, and infant loss</li>
-          <li>Peer connection with others who have experienced pregnancy or infant loss</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SHELTER, HOUSING & CRISIS-BASED SUPPORT -->
-    <div class="section-label">
-      ⭐ Shelter, Housing &amp; Crisis-Based Support
-      <span>Safe housing, domestic violence support, and maternity homes</span>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">New Beginnings Domestic Violence Shelter</div>
-        <div class="tag">Domestic violence shelter</div>
-      </div>
-      <div class="card-meta">
-        📍 35 N. Booth St, Dubuque<br />
-        ☎️ Shelter: 563-556-3371<br />
-        ☎️ 24-Hour Hotline: 563-556-1100 / 1-800-332-5899
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Shelter:</div>
-        <a class="call-link" href="tel:5635563371">📞 <span>563-556-3371</span></a>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">24-Hour Hotline:</div>
-        <a class="call-link" href="tel:5635561100">📞 <span>563-556-1100</span></a>
-        <a class="call-link" href="tel:18003325899">📞 <span>1-800-332-5899</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Safe shelter for domestic violence survivors</li>
-          <li>Trauma-informed support &amp; safety planning</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Dubuque Community YMCA/YWCA Victim Services Shelter</div>
-        <div class="tag">Domestic violence shelter</div>
-      </div>
-      <div class="card-meta">
-        📍 35 N. Booth St, Dubuque<br />
-        ☎️ 563-556-3371 / 1-800-332-5899
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635563371">📞 <span>563-556-3371</span></a>
-        <a class="call-link" href="tel:18003325899">📞 <span>1-800-332-5899</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>18-bed domestic violence shelter with 24/7 advocates</li>
-          <li>Housing placement, legal help, supplies, and groceries</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Teresa Shelter (Opening Doors)</div>
-        <div class="tag">Women &amp; children shelter</div>
-      </div>
-      <div class="card-meta">
-        📍 1111 Bluff St, Dubuque<br />
-        ☎️ 563-690-0086
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5636900086">📞 <span>563-690-0086</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Shelter for women with or without children</li>
-          <li>Daily support and case management</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Life House</div>
-        <div class="tag">Maternity home</div>
-      </div>
-      <div class="card-meta">
-        📍 PO Box 1691, Dubuque<br />
-        ☎️ 563-513-1988
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635131988">📞 <span>563-513-1988</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Christ-centered maternity home</li>
-          <li>For women in crisis pregnancies needing safe housing</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Mary’s Inn Maternity Home</div>
-        <div class="tag">Maternity home</div>
-      </div>
-      <div class="card-meta">
-        📍 PO Box 3338, Dubuque<br />
-        ☎️ 563-552-6288
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635526288">📞 <span>563-552-6288</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Long-term maternity home</li>
-          <li>Physical, emotional, and spiritual support</li>
-          <li>Parenting &amp; life skills development</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">National Domestic Violence Hotline</div>
-        <div class="tag">Nationwide 24/7 hotline</div>
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:8007997233">📞 <span>1-800-799-SAFE (7233)</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>24/7 confidential support, safety planning, and resources</li>
-          <li>Help finding local shelters and legal resources</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- HEALTH & MENTAL HEALTH SERVICES -->
-    <div class="section-label">
-      ⭐ Health &amp; Mental Health Services
-      <span>Outpatient therapy, psychiatric care, and reproductive healthcare</span>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Hillcrest Asbury Mental Health Center</div>
-        <div class="tag">Mental health services</div>
-      </div>
-      <div class="card-meta">
-        📍 2005 Asbury Rd, Dubuque<br />
-        ☎️ 563-583-7357
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635837357">📞 <span>563-583-7357</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Outpatient therapy for all ages</li>
-          <li>Psychiatric evaluation &amp; medication management</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Emma Goldman Clinic – Iowa City</div>
-        <div class="tag">Reproductive health</div>
-      </div>
-      <div class="card-meta">
-        📍 Iowa City, IA<br />
-        ☎️ 319-337-2111
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:3193372111">📞 <span>319-337-2111</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Pregnancy testing</li>
-          <li>Reproductive healthcare services</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- FOOD RESOURCES & NUTRITION SUPPORT -->
-    <div class="section-label">
-      ⭐ Food Resources &amp; Nutrition Support
-      <span>WIC, food pantries, and community food assistance</span>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">WIC – Women, Infants &amp; Children</div>
-        <div class="tag">Nutrition program</div>
-      </div>
-      <div class="card-meta">
-        📍 220 W. 7th St (Hillcrest Family Services), Dubuque<br />
-        ☎️ 563-557-4444
-      </div>
-      <div class="card-number-row">
-        <div class="card-number-label">Phone:</div>
-        <a class="call-link" href="tel:5635574444">📞 <span>563-557-4444</span></a>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Nutrition program for pregnant &amp; postpartum women</li>
-          <li>Formula and healthy foods</li>
-          <li>Breastfeeding support</li>
-          <li>Nutrition support for children under age 5</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Major Food Pantries &amp; Food Assistance</div>
-        <div class="tag">Food support</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>Resources Unite Food Pantry – 1900 JFK Rd</li>
-          <li>Salvation Army Pantry – 1099 Iowa St</li>
-          <li>St. Stephen’s Food Bank – Cedar Crest Ridge</li>
-          <li>St. Vincent de Paul Center – 1351 Iowa St</li>
-          <li>Dubuque Food Pantry – 1598 Jackson St</li>
-          <li>Labor Harvest – 423 W Locust</li>
-          <li>Multicultural Family Center Pantry – 1157 Central Ave</li>
-          <li>Maquoketa Community Cupboard – 903 W Platt</li>
-          <li>Grace Point Food Pantry – 3100 Windsor Ave</li>
-          <li>Plus food pantries in Epworth, Dyersville, Peosta, Platteville, Galena, East Dubuque, Cascade, and Bernard</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- WEEKLY COMMUNITY MEAL CALENDAR -->
-    <div class="section-label">
-      ⭐ Weekly Community Meal Calendar (with addresses)
-      <span>Free or low-cost meals available throughout the week in Dubuque</span>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Sunday</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            7:30 AM – Breakfast
-          </li>
-          <li>
-            <strong>St. John Episcopal Church</strong> – 1458 Locust Street, Dubuque<br />
-            12:00 PM – Lunch (5th Sundays only)
-          </li>
-          <li>
-            <strong>Hope House Catholic Worker</strong> – 1592 Locust Street, Dubuque<br />
-            6:00 PM – Dinner
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Monday</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            7:30 AM – Breakfast
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            12:00 PM – Lunch
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            5:00 PM – Dinner
-          </li>
-          <li>
-            <strong>Hope House</strong> – 1592 Locust Street, Dubuque<br />
-            6:00 PM – Dinner
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Tuesday</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            7:30 AM – Breakfast
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            12:00 PM – Lunch
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            5:00 PM – Dinner
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Wednesday</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            7:30 AM – Breakfast
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            12:00 PM – Lunch
-          </li>
-          <li>
-            <strong>St. Patrick’s Catholic Church</strong> – 1425 Iowa Street, Dubuque<br />
-            5:00 PM – Dinner
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Thursday</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            7:30 AM – Breakfast
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            12:00 PM – Lunch
-          </li>
-          <li>
-            <strong>First Congregational UCC</strong> – 255 West 10th Street, Dubuque<br />
-            5:30 PM – Dinner
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Friday</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            7:30 AM – Breakfast
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            12:00 PM – Lunch
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            5:00 PM – Dinner
-          </li>
-          <li>
-            <strong>Dubuque Community Church Outreach</strong> – 1696 Central Avenue, Dubuque<br />
-            10:30 AM – 1:00 PM – Community meal &amp; outreach
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Saturday</div>
-      </div>
-      <div class="card-description">
-        <ul>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            7:30 AM – Breakfast
-          </li>
-          <li>
-            <strong>Rescue Mission</strong> – 398 Main Street, Dubuque<br />
-            12:00 PM – Lunch
-          </li>
-          <li>
-            <strong>Dubuque Area Labor Harvest</strong> – 423 West Locust Street, Dubuque<br />
-            7:30 AM – Food giveaway<br />
-            <em>(Every 1st, 3rd, 4th, &amp; 5th Saturday)</em>
-          </li>
-          <li>
-            <strong>St. Luke’s United Methodist Church</strong> – 1199 Main Street, Dubuque<br />
-            5:30 PM – Dinner
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="small-note">
-      This directory is for informational purposes only. Availability of services, hours, and eligibility may change.
-      Please call ahead to confirm details. Additional resources can be found at
-      <a href="https://resourcesunite.com/resources">resourcesunite.com/resources</a>
-      or by calling Resources Unite at 563-231-6280. In emergencies, always call <strong>911</strong>.
-    </p>
+<!-- CLARITY CLINIC -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">The Clarity Clinic</div>
+    <div class="tag">Pregnancy & parenting support</div>
   </div>
+  <div class="card-meta">📍 3365 Hillcrest Rd, Dubuque, IA</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635565250">📞 <span>563-556-5250</span></a>
+    <a class="call-link" href="tel:5635573123">📞 <span>563-557-3123</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Free pregnancy tests & ultrasounds</li>
+      <li>Parenting classes with incentives</li>
+      <li>Free high-quality baby gear</li>
+      <li>First Steps: mentoring ages 0–5</li>
+      <li>STD testing, education, counseling</li>
+    </ul>
+  </div>
+</div>
+
+<!-- MERCYONE -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">MercyOne Maternal Health</div>
+    <div class="tag">Prenatal & postpartum care</div>
+  </div>
+
+  <div class="card-meta">
+    📍 200 Mercy Drive, Suite 102, Dubuque, IA 52001
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635898595">📞 <span>563-589-8595</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Prenatal & postpartum care</li>
+      <li>Free pregnancy testing (eligibility-based)</li>
+      <li>Help applying for Medicaid & insurance</li>
+      <li>Pre-registration assistance for hospital</li>
+      <li>Postpartum & newborn care education</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PHP -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Parents Helping Parents (PHP)</div>
+    <div class="tag">National parenting helpline</div>
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:18006328188">📞 <span>1-800-632-8188</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Confidential national parenting helpline</li>
+      <li>Emotional support</li>
+      <li>Zoom support groups</li>
+      <li>Help with parenting stress</li>
+    </ul>
+  </div>
+</div>
+
+<!-- BIRTHRIGHT -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Birthright</div>
+    <div class="tag">Pregnancy support</div>
+  </div>
+
+  <div class="card-meta">📍 221 W 9th St, Dubuque</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635561991">📞 <span>563-556-1991</span></a>
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Emergency:</div>
+    <a class="call-link" href="tel:18005504900">📞 <span>1-800-550-4900</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Free pregnancy testing</li>
+      <li>Confidential counseling</li>
+      <li>Free maternity & infant clothing</li>
+    </ul>
+  </div>
+</div>
+
+<!-- STEPPING STONES -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Stepping Stones – Hope Church Mentoring</div>
+    <div class="tag">Mentoring ages 0–4</div>
+  </div>
+
+  <div class="card-meta">📍 700 Locust St (Lower Level)</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635573774">📞 <span>563-557-3774</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Mentoring for pregnant women & parents</li>
+      <li>Relationship and parenting coaching</li>
+    </ul>
+  </div>
+</div>
+
+<!-- MOPS -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Mothers of Preschoolers (MOPS)</div>
+    <div class="tag">Peer mom community</div>
+  </div>
+
+  <div class="card-meta">📍 11893 Kennedy Rd</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635567724">📞 <span>563-556-7724</span></a>
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Email:</div>
+    <a class="email-link" href="mailto:mops@ehope.org">mops@ehope.org</a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Supportive community of moms</li>
+      <li>Social connection & parenting encouragement</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAT -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Parents as Teachers – Four Oaks</div>
+    <div class="tag">Home visiting</div>
+  </div>
+
+  <div class="card-meta">📍 2460 Kerper Blvd</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635573100">📞 <span>563-557-3100</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Free home visiting support</li>
+      <li>Developmental screenings</li>
+      <li>Coaching from pregnancy to kindergarten</li>
+    </ul>
+  </div>
+</div>
+
+<!-- GABRIEL PROJECT -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">The Gabriel Project – St. Anthony’s Parish</div>
+    <div class="tag">Pregnancy support</div>
+  </div>
+
+  <div class="card-meta">
+    Local contacts: Jackie (563-582-7949), Sue (563-583-0457)
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Jackie:</div>
+    <a class="call-link" href="tel:5635827949">📞 <span>563-582-7949</span></a>
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Sue:</div>
+    <a class="call-link" href="tel:5635830457">📞 <span>563-583-0457</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Spiritual & emotional support</li>
+      <li>Baby supplies & diapers</li>
+      <li>Rides, meals, basic financial help</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ⭐ EARLY DEVELOPMENT -->
+<div class="section-label">
+ ⭐ Early Development & Education
+ <span>Childcare, preschool, screenings, and early intervention</span>
+</div>
+
+<!-- HILLS & DALES -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Hills & Dales Child Care</div>
+    <div class="tag">Childcare & preschool</div>
+  </div>
+
+  <div class="card-meta">📍 3505 Stoneman Rd</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635835033">📞 <span>563-583-5033</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Childcare & preschool</li>
+      <li>Before/after school care</li>
+      <li>Inclusive care (ages 0–18)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- KEYSTONE AEA -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Keystone Area Education Agency (AEA)</div>
+    <div class="tag">Early intervention</div>
+  </div>
+
+  <div class="card-meta">📍 2310 Chaney Rd</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Local:</div>
+    <a class="call-link" href="tel:5635563310">📞 <span>563-556-3310</span></a>
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Toll-free:</div>
+    <a class="call-link" href="tel:18006325918">📞 <span>1-800-632-5918</span></a>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Free developmental screening (ages 0–3)</li>
+      <li>Early intervention services</li>
+    </ul>
+  </div>
+</div>
+
+<!-- VNA -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Visiting Nurse Association (VNA)</div>
+    <div class="tag">Child & family services</div>
+  </div>
+
+  <div class="card-meta">📍 1454 Iowa St</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635566200">📞 <span>563-556-6200</span></a>
+  </div>
+
+  <div class="card-description">
+    <strong>Child & Family:</strong>
+    <ul>
+      <li>Free screenings (0–5)</li>
+      <li>Immunizations, lead testing</li>
+      <li>Parent education</li>
+    </ul>
+
+    <strong>Other VNA:</strong>
+    <ul>
+      <li>Elder home care</li>
+      <li>HIV testing, cancer screenings</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ⭐ BREASTFEEDING -->
+<div class="section-label">
+ ⭐ Breastfeeding Support
+ <span>Lactation support groups, pumping help, feeding education</span>
+</div>
+
+<!-- NATURAL MILK NETWORK -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Natural Milk Network</div>
+    <div class="tag">Breastfeeding group</div>
+  </div>
+
+  <div class="card-meta">
+    📍 MercyOne Board Room • ☎️ 563-589-9598<br/>
+    🕒 1st, 3rd & 5th Wednesdays • 1–3 PM
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635899598">📞 <span>563-589-9598</span></a>
+  </div>
+</div>
+
+<!-- FINLEY -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Finley UnityPoint Breastfeeding Group</div>
+    <div class="tag">Lactation support</div>
+  </div>
+
+  <div class="card-meta">
+    📍 1515 Delhi St (3rd Floor)<br/>
+    🕒 Tuesdays 1:30–2:30 PM; every other Tuesday 6–7 PM
+  </div>
+</div>
+
+<!-- WIC BREASTFEEDING -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">WIC Breastfeeding Support</div>
+    <div class="tag">Nutrition & lactation</div>
+  </div>
+
+  <div class="card-meta">☎️ 563-557-4444</div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:5635574444">📞 <span>563-557-4444</span></a>
+  </div>
+</div>
+
+
+<!-- ⭐ EMOTIONAL SUPPORT -->
+<div class="section-label">
+ ⭐ Emotional & Peer Support Groups
+ <span>Support for mood changes, postpartum emotions, and grief</span>
+</div>
+
+<!-- EMOTIONS GROUP -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Prenatal & Postpartum Emotions Group</div>
+    <div class="tag">Support group</div>
+  </div>
+
+  <div class="card-meta">
+    📍 MercyOne, 6th Floor Boardroom<br/>
+    ☎️ 563-587-9406 • 🕒 1st Saturday, 10:30–12
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Email:</div>
+    <a class="email-link" href="mailto:Dubuque.therapy@gmail.com">
+      Dubuque.therapy@gmail.com
+    </a>
+  </div>
+</div>
+
+<!-- SHARE -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">SHARE – Pregnancy & Infant Loss</div>
+    <div class="tag">Grief support</div>
+  </div>
+
+  <div class="card-meta">
+    📍 MercyOne, 250 Mercy Dr<br/>
+    ☎️ 563-589-9599 • 🕒 Meets 2nd Wednesday monthly
+  </div>
+</div>
+
+
+<!-- ⭐ SHELTER & CRISIS -->
+<div class="section-label">
+ ⭐ Shelter, Housing & Crisis Support
+ <span>Safe housing, domestic violence support, maternity homes</span>
+</div>
+
+<!-- NEW BEGINNINGS -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">New Beginnings Domestic Violence Shelter</div>
+    <div class="tag">DV shelter</div>
+  </div>
+
+  <div class="card-meta">
+    📍 35 N. Booth St<br/>
+    ☎️ Shelter: 563-556-3371<br/>
+    ☎️ 24-Hour Hotline: 563-556-1100 / 1-800-332-5899
+  </div>
+</div>
+
+<!-- YMCA/YWCA -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Dubuque YMCA/YWCA Victim Services</div>
+    <div class="tag">DV shelter</div>
+  </div>
+
+  <div class="card-meta">
+    📍 35 N. Booth St<br/>
+    ☎️ 563-556-3371 / 1-800-332-5899
+  </div>
+</div>
+
+<!-- TERESA SHELTER -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Teresa Shelter (Opening Doors)</div>
+    <div class="tag">Women & children shelter</div>
+  </div>
+
+  <div class="card-meta">
+    📍 1111 Bluff St<br/>
+    ☎️ 563-690-0086
+  </div>
+</div>
+
+<!-- LIFE HOUSE -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Life House</div>
+    <div class="tag">Maternity home</div>
+  </div>
+
+  <div class="card-meta">
+    📍 PO Box 1691<br/>
+    ☎️ 563-513-1988
+  </div>
+</div>
+
+<!-- MARY'S INN -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Mary’s Inn Maternity Home</div>
+    <div class="tag">Maternity home</div>
+  </div>
+
+  <div class="card-meta">
+    📍 PO Box 3338<br/>
+    ☎️ 563-552-6288
+  </div>
+</div>
+
+<!-- NATIONAL HOTLINE -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">National Domestic Violence Hotline</div>
+    <div class="tag">24/7 hotline</div>
+  </div>
+
+  <div class="card-number-row">
+    <div class="card-number-label">Phone:</div>
+    <a class="call-link" href="tel:8007997233">📞 <span>1-800-799-SAFE</span></a>
+  </div>
+</div>
+
+
+<!-- ⭐ HEALTH & MENTAL HEALTH -->
+<div class="section-label">
+ ⭐ Health & Mental Health Services
+ <span>Therapy, psychiatry, reproductive health</span>
+</div>
+
+<!-- HILLCREST -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Hillcrest Asbury Mental Health Center</div>
+    <div class="tag">Mental health</div>
+  </div>
+
+  <div class="card-meta">
+    📍 2005 Asbury Rd<br/>
+    ☎️ 563-583-7357
+  </div>
+</div>
+
+<!-- EMMA GOLDMAN -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Emma Goldman Clinic</div>
+    <div class="tag">Reproductive health</div>
+  </div>
+
+  <div class="card-meta">
+    📍 Iowa City, IA<br/>
+    ☎️ 319-337-2111
+  </div>
+</div>
+
+
+<!-- ⭐ FOOD -->
+<div class="section-label">
+ ⭐ Food Resources & Nutrition Support
+ <span>WIC, food pantries, community food assistance</span>
+</div>
+
+<!-- WIC -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">WIC – Women, Infants & Children</div>
+    <div class="tag">Nutrition program</div>
+  </div>
+
+  <div class="card-meta">
+    📍 220 W 7th St (Hillcrest Family Services)<br/>
+    ☎️ 563-557-4444
+  </div>
+</div>
+
+<!-- PANTRIES -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Major Food Pantries</div>
+    <div class="tag">Food support</div>
+  </div>
+
+  <div class="card-description">
+    <ul>
+      <li>Resources Unite – 1900 JFK Rd</li>
+      <li>Salvation Army – 1099 Iowa St</li>
+      <li>St. Stephen’s Food Bank – Cedar Crest Ridge</li>
+      <li>St. Vincent de Paul – 1351 Iowa St</li>
+      <li>Dubuque Food Pantry – 1598 Jackson St</li>
+      <li>Labor Harvest – 423 W Locust</li>
+      <li>Multicultural Family Center – 1157 Central Ave</li>
+      <li>Maquoketa Community Cupboard – 903 W Platt</li>
+      <li>Grace Point – 3100 Windsor Ave</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ⭐ MEAL CALENDAR -->
+<div class="section-label">
+ ⭐ Weekly Community Meal Calendar (with addresses)
+ <span>Free meals available throughout the week</span>
+</div>
+
+<!-- SUNDAY -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Sunday</div></div>
+  <div class="card-description">
+    <ul>
+      <li><strong>Rescue Mission</strong> – 398 Main St • 7:30 AM Breakfast</li>
+      <li><strong>St. John Episcopal</strong> – 1458 Locust St • 12 PM Lunch (5th Sundays)</li>
+      <li><strong>Hope House</strong> – 1592 Locust St • 6 PM Dinner</li>
+    </ul>
+  </div>
+</div>
+
+<!-- MONDAY -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Monday</div></div>
+  <div class="card-description">
+    <ul>
+      <li>Rescue Mission – 7:30 AM Breakfast</li>
+      <li>Rescue Mission – 12 PM Lunch</li>
+      <li>Rescue Mission – 5 PM Dinner</li>
+      <li>Hope House – 6 PM Dinner</li>
+    </ul>
+  </div>
+</div>
+
+<!-- TUESDAY -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Tuesday</div></div>
+  <div class="card-description">
+    <ul>
+      <li>Rescue Mission – 7:30 AM Breakfast</li>
+      <li>Rescue Mission – 12 PM Lunch</li>
+      <li>Rescue Mission – 5 PM Dinner</li>
+    </ul>
+  </div>
+</div>
+
+<!-- WEDNESDAY -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Wednesday</div></div>
+  <div class="card-description">
+    <ul>
+      <li>Rescue Mission – 7:30 AM Breakfast</li>
+      <li>Rescue Mission – 12 PM Lunch</li>
+      <li>St. Patrick’s – 5 PM Dinner</li>
+    </ul>
+  </div>
+</div>
+
+<!-- THURSDAY -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Thursday</div></div>
+  <div class="card-description">
+    <ul>
+      <li>Rescue Mission – 7:30 AM Breakfast</li>
+      <li>Rescue Mission – 12 PM Lunch</li>
+      <li>First Congregational UCC – 5:30 PM Dinner</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FRIDAY -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Friday</div></div>
+  <div class="card-description">
+    <ul>
+      <li>Rescue Mission – 7:30 AM Breakfast</li>
+      <li>Rescue Mission – 12 PM Lunch</li>
+      <li>Rescue Mission – 5 PM Dinner</li>
+      <li>Dubuque Community Church Outreach – 10:30 AM–1 PM</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SATURDAY -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Saturday</div></div>
+  <div class="card-description">
+    <ul>
+      <li>Rescue Mission – 7:30 AM Breakfast</li>
+      <li>Rescue Mission – 12 PM Lunch</li>
+      <li>Labor Harvest – 7:30 AM Giveaway (1st,3rd,4th,5th)</li>
+      <li>St. Luke’s UMC – 5:30 PM Dinner</li>
+    </ul>
+  </div>
+</div>
+
+
+<p class="small-note">
+  This directory is for informational purposes. Hours & availability may change.  
+  More resources: <a href="https://resourcesunite.com/resources">resourcesunite.com/resources</a>  
+  In emergencies, call <strong>911</strong>.
+</p>
+
+</div>
 </body>
 </html>
